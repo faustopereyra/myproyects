@@ -1,0 +1,234 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+html{
+    font-family: 'Inter', sans-serif;
+    background-color: #fff;
+    font-size: 20px;
+    font-weight: 300;
+    text-rendering: optimizeLegibility;
+}
+
+.row{
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+.col-1-of-2{
+    width: 40%;
+    margin: 0 5%;
+
+}
+
+.btn{
+    display: inline-block;
+    text-decoration: none;
+    padding: 15px 100px;
+    border: 1px solid rgb(102, 102, 102);
+    border-radius: 5px;
+    color:#fff;
+    font-weight: 900;
+    font-size: 80%;
+}
+
+.red-btn:link,
+.red-btn:visited{
+    background-color: rgb(255, 69, 70);
+    transition: background-color 0.2s;
+}
+
+.red-btn:hover,
+.red-btn:active {
+    background-color: rgb(255, 18, 19)
+}
+
+.purple-btn:link,
+.purple-btn:visited{
+    background-color: rgb(103, 71, 199);
+    transition: background-color 0.2s;
+}
+
+.purple-btn:hover,
+.purple-btn:active {
+    background-color: rgb(80, 51, 168);
+}
+
+/*-----------------HEADER------------------*/
+
+header{
+    background-color: rgb(115, 90, 191);
+    color: #fff;
+    width: 100%;
+    height: 110vh
+}
+
+header h1{
+    font-size: 230%;
+    margin-bottom: 15px;
+}
+
+.red{
+    color: rgb(244, 81, 108);
+    margin-bottom: 0;
+}
+
+.izquierda{
+    position: absolute;
+    top: 60%;
+    left: 0%;
+    transform: translate(0,-50%);
+}
+
+.izquierda p{
+    font-size: 90%;
+    margin-bottom: 30px;
+}
+
+.timer ul{
+    list-style: none;
+    width: 90%;
+    
+}
+
+.timer span{
+    font-size: 60%;
+    font-weight: 400;
+}
+
+.timer li{
+    display: inline-block;
+    width: 24%;
+    text-align: center;
+    font-size: 150%;
+    font-weight: bold;
+}
+
+.izquierda a{
+    margin: 40px 0;
+}
+
+
+.derecha{
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%,-50%);
+}
+
+.derecha{
+    font-size: 300%;
+}
+
+.price span{
+    position: relative;
+    top: 60px;
+}
+
+.precio-header{
+    font-size: 300%;
+    font-weight: bolder;
+}
+
+.mes{
+    font-size: 60%;
+}
+
+.ahorra{
+    position: absolute;
+    top: 40%;
+    left: 73%;
+    transform: translate(-50%,-50%);
+    background-color: rgb(255, 118, 120);
+    padding: 10px 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/*-----------------NAVEGATION------------------*/
+
+.logo{
+    width: 200px;
+    height: auto;
+    margin-top: 35px;
+    margin-left: 60px;
+    float: left;
+}
+
+
+.menu{
+    float: right;
+    list-style: none;
+    margin-top: 40px;
+    margin-right: 70px;
+    
+}
+
+.menu li {
+    display: inline-block;
+    margin-left: 30px;    
+}
+
+.menu li a:link,
+.menu li a:visited {
+    padding-bottom: 5px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 70%;
+    transition: color 0.2s;
+}
+
+.menu li a:hover,
+.menu li a:active {
+    color: rgba(255, 255, 255, 0.534);    
+}
+
+.ingresar{
+    border: solid 1px #fff;
+    border-radius: 3px;
+    padding: 6px 30px;
+
+}
+
+/*-----------------PRECIOS------------------*/
+
+.section-option{
+    background-color: rgb(115, 90, 191);
+    
+}
+
+.pp{
+    background-color: red;
+    
+    
+}
+.section-option div{
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    Transform: translateX(-50%)
+    
+
+}
+.option{
+    background-color: yellow;
+    width: 32.26%;
+}
+
+
+
+
+
+.offer{
+    width: 32.26%;
+    float: left;
+    text-align: justify;
+    margin-top: 20px;
+}
+
+.offer p{
+    margin-bottom: 10px;
+}

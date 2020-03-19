@@ -1,0 +1,230 @@
+/*---- GENERAL ----*/
+
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+html{
+    font-weight: 300px;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #fff;
+    box-sizing: border-box;
+
+    
+}
+body{
+    margin: 0;
+    padding: 0;
+}
+
+/*---- REUSABLE ----*/
+
+h1,h2{
+    text-transform: uppercase;
+    font-weight: 200;
+}
+
+h1{
+    font-size: 240%;
+    letter-spacing: 2px;
+    /*position: absolute;
+    top: 30%;
+    left: 30%;
+    transform: translate(-50%,-50%);*/
+}
+
+h3{
+    font-size: 150%;
+    margin: 20px 0;
+}
+
+h3::after{
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: #0f4c75;
+    content: " ";
+    margin: 20px 10px;
+}
+
+h3:hover{
+    color:#3282b8;
+    transition: color 0.2s;
+}
+
+
+.main-btn:link, .main-btn:visited{
+    border: #fff  solid 2px;
+    border-radius: 200px;
+    display: inline-block;
+    padding: 6px 30px;
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 90%;
+    margin-right: 10px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.main-btn:hover{
+    background-color: #fff;
+    color: #000;
+}
+
+.row{
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+/*---- HEADER ----*/
+
+header{
+    background-image: url(hero.jpg);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: #fff;
+    height: 100vh;
+    background-attachment: fixed;
+}
+
+header h2{
+    font-size: 100%;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+}
+
+.hero{
+    position: absolute;
+    width: 1140px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+
+/*---- CONTENT ----*/
+
+.main-content{
+    background-color: #e0e0e0;
+    padding: 60px 0;
+}
+.article{
+    padding: 20px 0;
+    overflow: hidden;
+}
+
+.article img{
+    width: 300px;
+    float: left;
+    
+}
+
+
+.article-content{
+    margin-left: 330px;
+    
+}
+
+/*---- COLLAGE ----*/
+
+.collage{
+    width: 100%;
+}
+.collage ul{
+    list-style: none;
+    width: 100%;
+    overflow: hidden;
+   
+}
+.me-content img{
+    width: 33.33333%;
+    float: left;    
+    
+    display: block;
+    transform: scale(1.15);
+    transition: transform 0.2s;
+}
+
+.me-content img:hover{
+    transform: scale(1.05);
+}
+
+/*---- PROFILE ----*/
+
+.profile{
+    margin: 60px 0;
+}
+.prof-head{
+    width: 100%;
+    margin: 30px 0;
+}
+
+.prof-head::after{
+    display: block;
+    height: 1px;
+    width: 100%;
+    background-color: #979797;
+    content: " ";
+    margin: 20px 0;
+}
+
+.prof-head h2,
+.prof-head h4{
+    text-align: center;
+    color: #1b262c;
+
+}
+
+.prof-head h2{
+    font-size: 200%;
+    margin-bottom: 10px; 
+}
+
+.about-me, 
+.profile-photo,
+.details{
+    width: 33%;
+    float: left;
+    overflow: hidden;
+  
+    
+}
+
+.about-me h2,
+.details h2{
+    margin-bottom: 20px;
+    color:  #0f4c75;
+}
+
+.about-me h2:after,
+.details h2:after{
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: #3282b8;
+    content: "";
+    margin: 5px 0;
+
+}
+
+.about-me{
+    text-align: justify;
+    margin-bottom: 60px;
+}
+
+.profile-photo img{
+    width: 80%;
+    border-radius: 50%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    
+}
+
+.details div,
+.details h4{
+    margin-bottom: 5px;
+}

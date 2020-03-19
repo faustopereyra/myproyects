@@ -1,0 +1,11 @@
+       <nav>
+            <img class="logo" src="IMG/logo-white.jpg">
+
+            <ul class="menu">
+                <li><a href="#">Food delivery</a></li>
+                <li><a href="#">How it works</a></li>
+                <li><a href="#">Our cities</a></li>
+                <li><a href="#">Sign up</a></li>
+            </ul>
+
+        </nav>
