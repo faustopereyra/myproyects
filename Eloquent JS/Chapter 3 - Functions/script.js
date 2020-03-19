@@ -45,4 +45,6 @@ function calc(num=1, input){
     else{ console.log("no se puede llegar al numero")}
 }
 
-calc(1, 13)
+calc(1, 13);
+
+console.log("chequear funcionalidad");
