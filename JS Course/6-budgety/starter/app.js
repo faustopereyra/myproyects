@@ -1,66 +1,153 @@
+// budget controller
 
-// UI Module
-var uiModule= (function() {
+let budgetController= ( function(){
+
+    let Expence = function(id, description, value){
+        this.id= id;
+        this.description= description;
+        this.value= value;
+    }
+    
+    let Income = function(id, description, value){
+        this.id= id;
+        this.description= description;
+        this.value= value;
+    }
+
+    let data = {
+        allItems:{
+            exp:[],
+            inc:[]
+        },
+        totals:{
+            exp: 0,
+            inc: 0
+        }
+    }
+
+    return{
+        addItem: function(type, des, val){
+
+            let newValue, ID;
+
+            // Create new ID
+            if(data.allItems[type].length > 0){
+                ID = data.allItems[type][data.allItems[type].length -1].id + 1;
+            } else ID = 0;
+
+            // Create new item base on type 
+            if(type == "exp"){ newValue= new Expence(ID, des, val); }
+            else if(type == "inc") {newValue= new Income(ID, des, val)};
+
+            // Push value into data Structure
+            data.allItems[type].push(newValue);
+
+            //Retur the new element
+            return newValue;
+        },
+        
+
+        
+    }
+})();
+
+
+// UI Controller
+
+var UIController = ( function(){
+
+    let DOMstrings = {
+        inputType: ".add__type",
+        inputValue: ".add__value",
+        inputDescription: ".add__description",
+        inputBTN: ".add__btn",
+        incomeList:".income__list",
+        expensesList:".expenses__list"
+    };
     
     return {
-        getData: function() {
-            return{
-                description: document.querySelector(".add__description").value,
-                value: document.querySelector(".add__value").value,
-                type: document.querySelector(".add__type").value
+        inputData: function(){
+            return {
+                type: document.querySelector(DOMstrings.inputType).value,
+                value: document.querySelector(DOMstrings.inputValue).value,
+                description: document.querySelector(DOMstrings.inputDescription).value
             }
+           
+        },
+
+        getDOMstrings: function(){
+            return DOMstrings;
+        },
+
+        addItemUI: function(obj, type){
+            let html,element, newHtml;
+            //Create the HTML string
+            if(type == "exp"){
+                element= DOMstrings.expensesList;
+                html= `<div class="item clearfix" id="%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>`
+            }else if(type == "inc"){
+                element= DOMstrings.incomeList;
+                html=`<div class="item clearfix" id="%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>`
+            }
+
+            //Replase all HTML with the data
+            newHtml= html.replace("%id%", obj.id);
+            newHtml= newHtml.replace("%description%", obj.description);
+            newHtml= newHtml.replace("%value%", obj.value);
+
+            //Insert HTML into the DOM
+            document.querySelector(element).insertAdjacentHTML("beforeend", newHtml);
         }
-        
-    }
-    
+    };
 })();
 
-// DATA Module
-var dataModule= (function() {
 
-     function expense(type, description, value){
-       this.type= type;
-       this.description= description;
-       this.value= value
-    }
+// MAIN  Controller
+let controller= (function(budgetCtrl, UICtrl){
 
-    function income(type, description, value){
-        this.type= type;
-        this.description= description;
-        this.value= value
-    }  
+    let setupEventListeners = function(){
+        let DOM= UIController.getDOMstrings();
 
+        document.querySelector(DOM.inputBTN).addEventListener("click", ctrlAddItem);
+
+        document.addEventListener("keypress", function(event){
+            if(event.keyCode == 13 ){
+                ctrlAddItem()
+            }
+        });
+    };   
+
+    let ctrlAddItem = function(){
+
+        // 1. Get the field input data --> UI
     
+        let input= UICtrl.inputData();
 
-})();
+        // 2. Add the item to the controller --> UI
+    
+        item= budgetCtrl.addItem(input.type, input.description, input.value);
+        // 3. Add new item to the UI --> UI
+    
+        UICtrl.addItemUI(item, input.type );
 
-//MAIN CONTROLE  Module
+        // 4. Calculate the budget --> budget
+    
+        //calculateBudget();
 
-var controleModule= (function(ctrlUI, ctrlData) {
-
-    function addValue(){
-        
-        //1. Get the field input data
-
-        ctrlUI.getData();
-
-        //2. Add the item to the budget controller
-        
-        //3. add the item to the UI
-
-        //4. Calculate the budget
-
-        //5. Display the budget on the UI
+        // 5. Display the budget on the UI --> UI
+    
+        //displayBudget();
     }
 
-    document.querySelector(".add__btn").addEventListener("click", addValue);
+    return{
+            init: function(){
+                console.log("La app a iniciado");
+                setupEventListeners();
+            }
+    }
+    
+})(budgetController, UIController);
 
-    document.addEventListener("keypress", function(e){
-
-        if( e.keyCode == 13){
-            addValue()
-        } 
-    });
 
 
-})(uiModule, dataModule);
+controller.init();

@@ -74,7 +74,7 @@ document.querySelector(".btn-hold").addEventListener("click",function(){
         document.querySelector("#current-"+ currentPlayer).textContent = roundScore;
         
         // WINNER PROTOCOL
-        if(score[currentPlayer] >= 10 ){
+        if(score[currentPlayer] >= 100 ){
             
             document.querySelector(".player-"+currentPlayer+"-panel").classList.add("winner");
             document.querySelector("#name-"+currentPlayer).textContent= "WINNER"
