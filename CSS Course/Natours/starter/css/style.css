@@ -6,3 +6,145 @@ Medium green: #55c57a
 Dark green: #28b485
 
 */
+
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-family: "Lato", sans-serif;
+	font-weight: 400;
+	/*font-size: 16px;*/
+	line-height: 1.7;
+	color: #777;
+	padding: 2.5rem;
+}
+
+/* ----- Reusables -----*/
+
+@keyframes moveLeft {
+	0% {
+		opacity: 0;
+		transform: translatex(-10rem);
+	}
+
+	80% {
+		opacity: 0, 8;
+		transform: translatex(0.5rem);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translatex(0);
+	}
+}
+
+.btn:link,
+.btn:visited {
+	text-transform: uppercase;
+	text-decoration: none;
+	font-size: 1.6rem;
+	padding: 1.5rem 4rem;
+	border-radius: 20rem;
+	display: inline-block;
+	transition: all 0.2s;
+	position: relative;
+}
+
+.btn::after {
+	content: "";
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+	border-radius: 10rem;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	transition: all 0.4s;
+}
+
+.btn:hover::after {
+	transform: scalex(1.4) scaleY(1.5);
+	opacity: 0;
+}
+
+.btn:hover {
+	transform: translateY(-0.3rem);
+	box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.192);
+}
+
+.btn:active {
+	transform: translateY(-0.1rem);
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.192);
+}
+
+/* ----- HEADER -----*/
+
+.header {
+	height: 95vh;
+	background-image: linear-gradient(to right bottom, #7ed56fbb, #28b485bb),
+		url(../img/hero.jpg);
+	background-size: cover;
+	background-position: top;
+	clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+}
+
+.header__logo-box {
+	position: absolute;
+	top: 6rem;
+	left: 6rem;
+}
+
+.header__logo {
+	height: 3.5rem;
+}
+
+.header__text-box {
+	position: absolute;
+	top: 43%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.primary-heading {
+	color: #fff;
+	text-transform: uppercase;
+	animation-name: moveLeft;
+	animation-duration: 1s;
+}
+
+.primary-heading--main {
+	display: block;
+	font-size: 6rem;
+	font-weight: 400;
+	letter-spacing: 3.5rem;
+}
+
+.primary-heading--sub {
+	display: block;
+	font-size: 3rem;
+	font-weight: 300;
+	letter-spacing: 1.2rem;
+	margin-bottom: 6rem;
+}
+
+.btn--white {
+	background-color: #fff;
+	color: #777;
+}
+
+.btn--white::after {
+	background-color: #fff;
+}
+
+/* ----- HEADER -----*/
