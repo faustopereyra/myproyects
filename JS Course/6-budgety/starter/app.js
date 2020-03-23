@@ -5,12 +5,22 @@ let budgetController = (function() {
 		this.id = id;
 		this.description = description;
 		this.value = value;
+		this.porsentage = -1;
 	};
 
 	let Income = function(id, description, value) {
 		this.id = id;
 		this.description = description;
 		this.value = value;
+	};
+
+	Expence.prototype.porsentageSetup = function(c) {
+		if (c > 0) {
+			this.porsentage = Math.round((this.value / c) * 100);
+			return this.porsentage;
+		} else {
+			return (this.porsentage = -1);
+		}
 	};
 
 	let data = {
@@ -70,6 +80,19 @@ let budgetController = (function() {
 			} else data.porsentage = -1;
 		},
 
+		calculatePorsentage: function() {
+			data.allItems.exp.forEach(function(cur) {
+				cur.porsentageSetup(data.totals.inc);
+			});
+		},
+
+		getPorsentage: function() {
+			let porsentages = data.allItems.exp.map(function(c) {
+				return c.porsentage;
+			});
+			return porsentages;
+		},
+
 		getBudget: function() {
 			return {
 				bubgetTotal: data.budget,
@@ -77,6 +100,23 @@ let budgetController = (function() {
 				income: data.totals.inc,
 				expenses: data.totals.exp
 			};
+		},
+
+		deleteItem: function(type, id) {
+			let ids, ind;
+
+			ids = data.allItems[type].map(function(c) {
+				return c.id;
+			});
+
+			ind = ids.indexOf(id);
+
+			if (ind !== -1) {
+				data.allItems[type].splice(ind, 1);
+			}
+		},
+		testing: function() {
+			console.log(data);
 		}
 	};
 })();
@@ -94,7 +134,15 @@ var UIController = (function() {
 		bubgetLabel: ".budget__value",
 		incomeLabel: ".budget__income--value",
 		expenceLabel: ".budget__expenses--value",
-		porsentageLabel: ".budget__expenses--percentage"
+		porsentageLabel: ".budget__expenses--percentage",
+		container: ".container",
+		expensesPercLabel: ".item__percentage"
+	};
+
+	let nodeListForEach = function(list, callback) {
+		for (var i = 0; i < list.length; i++) {
+			callback(list[i], i);
+		}
 	};
 
 	return {
@@ -115,10 +163,10 @@ var UIController = (function() {
 			//Create the HTML string
 			if (type == "exp") {
 				element = DOMstrings.expensesList;
-				html = `<div class="item clearfix" id="%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>`;
+				html = `<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>`;
 			} else if (type == "inc") {
 				element = DOMstrings.incomeList;
-				html = `<div class="item clearfix" id="%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>`;
+				html = `<div class="item clearfix" id="inc-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>`;
 			}
 
 			//Replase all HTML with the data
@@ -158,11 +206,29 @@ var UIController = (function() {
 			} else {
 				document.querySelector(DOMstrings.porsentageLabel).textContent = "---";
 			}
+		},
+
+		deleteItemUI: function(selectorID) {
+			let el = document.getElementById(selectorID);
+			el.parentNode.removeChild(el);
+		},
+
+		displayPercentages: function(percentages) {
+			var fields = document.querySelectorAll(DOMstrings.expensesPercLabel);
+
+			nodeListForEach(fields, function(current, index) {
+				if (percentages[index] > 0) {
+					current.textContent = percentages[index] + "%";
+				} else {
+					current.textContent = "---";
+				}
+			});
 		}
 	};
 })();
 
 // MAIN  Controller
+
 let controller = (function(budgetCtrl, UICtrl) {
 	let setupEventListeners = function() {
 		let DOM = UIController.getDOMstrings();
@@ -174,6 +240,10 @@ let controller = (function(budgetCtrl, UICtrl) {
 				ctrlAddItem();
 			}
 		});
+
+		document
+			.querySelector(DOM.container)
+			.addEventListener("click", ctrlDelItem);
 	};
 
 	let updateBubget = function() {
@@ -188,6 +258,20 @@ let controller = (function(budgetCtrl, UICtrl) {
 		// 3. Display the budget on the UI --> UI
 
 		UICtrl.displayBudget(budget);
+	};
+
+	let updatePorsentage = function() {
+		// 1. Calculate Porsentage
+
+		budgetCtrl.calculatePorsentage();
+
+		// 2. Return the Porsentage
+
+		let porsentages = budgetCtrl.getPorsentage();
+
+		// 3. Update the UI
+
+		UICtrl.displayPercentages(porsentages);
 	};
 
 	let ctrlAddItem = function() {
@@ -211,6 +295,30 @@ let controller = (function(budgetCtrl, UICtrl) {
 			//5. Update Budget
 
 			updateBubget();
+
+			// 6. Update Porsentages
+
+			updatePorsentage();
+		}
+	};
+
+	let ctrlDelItem = function(e) {
+		itemID = e.target.parentNode.parentNode.parentNode.parentNode.id;
+		if (itemID) {
+			splitID = itemID.split("-");
+			type = splitID[0];
+			ID = parseInt(splitID[1]);
+			// 1. Delete item from the data strcture
+			budgetCtrl.deleteItem(type, ID);
+
+			// 2. Delete Item From the UI
+			UICtrl.deleteItemUI(itemID);
+
+			// 3. Update Budget
+			updateBubget();
+
+			// 4. Update Porsentages
+			updatePorsentage();
 		}
 	};
 
