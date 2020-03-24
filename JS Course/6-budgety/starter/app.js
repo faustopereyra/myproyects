@@ -95,7 +95,7 @@ let budgetController = (function() {
 
 		getBudget: function() {
 			return {
-				bubgetTotal: data.budget,
+				budgetTotal: data.budget,
 				porsentage: data.porsentage,
 				income: data.totals.inc,
 				expenses: data.totals.exp
@@ -115,6 +115,7 @@ let budgetController = (function() {
 				data.allItems[type].splice(ind, 1);
 			}
 		},
+
 		testing: function() {
 			console.log(data);
 		}
@@ -131,18 +132,41 @@ var UIController = (function() {
 		inputBTN: ".add__btn",
 		incomeList: ".income__list",
 		expensesList: ".expenses__list",
-		bubgetLabel: ".budget__value",
+		budgetLabel: ".budget__value",
 		incomeLabel: ".budget__income--value",
 		expenceLabel: ".budget__expenses--value",
 		porsentageLabel: ".budget__expenses--percentage",
 		container: ".container",
-		expensesPercLabel: ".item__percentage"
+		expensesPercLabel: ".item__percentage",
+		dateLabel: ".budget__title--month"
 	};
 
 	let nodeListForEach = function(list, callback) {
 		for (var i = 0; i < list.length; i++) {
 			callback(list[i], i);
 		}
+	};
+
+	let formatNumber = function(num, type) {
+		num = Math.abs(num);
+		num = num.toFixed(2);
+
+		numSplit = num.split(".");
+
+		int = numSplit[0];
+
+		//Rechequear dps de terminar codigo
+
+		if (int.length > 3) {
+			int = int.substr(0, int.length - 3) + "," + int.substr(int.length - 3, 3);
+		}
+		dec = numSplit[1];
+
+		if (type == "exp") {
+			num = "-" + " " + int + "." + dec;
+		} else num = "+" + " " + int + "." + dec;
+
+		return num;
 	};
 
 	return {
@@ -172,7 +196,7 @@ var UIController = (function() {
 			//Replase all HTML with the data
 			newHtml = html.replace("%id%", obj.id);
 			newHtml = newHtml.replace("%description%", obj.description);
-			newHtml = newHtml.replace("%value%", obj.value);
+			newHtml = newHtml.replace("%value%", formatNumber(obj.value, type));
 
 			//Insert HTML into the DOM
 			document.querySelector(element).insertAdjacentHTML("beforeend", newHtml);
@@ -193,12 +217,22 @@ var UIController = (function() {
 		},
 
 		displayBudget: function(budget) {
-			document.querySelector(DOMstrings.bubgetLabel).textContent =
-				budget.bubgetTotal;
-			document.querySelector(DOMstrings.incomeLabel).textContent =
-				budget.income;
-			document.querySelector(DOMstrings.expenceLabel).textContent =
-				budget.expenses;
+			let type;
+
+			if (budget.budgetTotal > 0) {
+				type = "inc";
+			} else type = "exp";
+			document.querySelector(DOMstrings.budgetLabel).textContent = formatNumber(
+				budget.budgetTotal,
+				type
+			);
+			document.querySelector(DOMstrings.incomeLabel).textContent = formatNumber(
+				budget.income,
+				"inc"
+			);
+			document.querySelector(
+				DOMstrings.expenceLabel
+			).textContent = formatNumber(budget.expenses, "exp");
 
 			if (budget.porsentage > 0) {
 				document.querySelector(DOMstrings.porsentageLabel).textContent =
@@ -223,6 +257,33 @@ var UIController = (function() {
 					current.textContent = "---";
 				}
 			});
+		},
+
+		displayDate: function() {
+			let now, months, month, year;
+
+			now = new Date();
+
+			months = [
+				"January",
+				"February",
+				"March",
+				"April",
+				"May",
+				"June",
+				"July",
+				"August",
+				"September",
+				"October",
+				"November",
+				"December"
+			];
+
+			month = now.getMonth();
+
+			year = now.getFullYear();
+			document.querySelector(DOMstrings.dateLabel).textContent =
+				months[month] + " " + year;
 		}
 	};
 })();
@@ -246,12 +307,12 @@ let controller = (function(budgetCtrl, UICtrl) {
 			.addEventListener("click", ctrlDelItem);
 	};
 
-	let updateBubget = function() {
+	let updateBudget = function() {
 		// 1. Calculate the budget --> budget
 
 		budgetCtrl.calculateBudget();
 
-		// 2. Return the bubget
+		// 2. Return the budget
 
 		let budget = budgetCtrl.getBudget();
 
@@ -294,7 +355,7 @@ let controller = (function(budgetCtrl, UICtrl) {
 
 			//5. Update Budget
 
-			updateBubget();
+			updateBudget();
 
 			// 6. Update Porsentages
 
@@ -315,7 +376,7 @@ let controller = (function(budgetCtrl, UICtrl) {
 			UICtrl.deleteItemUI(itemID);
 
 			// 3. Update Budget
-			updateBubget();
+			updateBudget();
 
 			// 4. Update Porsentages
 			updatePorsentage();
@@ -324,8 +385,9 @@ let controller = (function(budgetCtrl, UICtrl) {
 
 	return {
 		init: function() {
+			UICtrl.displayDate();
 			UICtrl.displayBudget({
-				bubgetTotal: 0,
+				budgetTotal: 0,
 				porsentage: -1,
 				income: 0,
 				expenses: 0
