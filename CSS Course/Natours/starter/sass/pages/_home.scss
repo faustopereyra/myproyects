@@ -1,0 +1,57 @@
+.section-about {
+	background-color: $color-grey-ligth;
+	padding: 25rem 0;
+	margin-top: -24vh;
+}
+
+.section-features {
+	padding: 20rem 0;
+	margin-top: -10rem;
+	background-image: linear-gradient(
+			to right bottom,
+			rgba($color-primary-ligth, 0.733),
+			rgba($color-primary-dark, 0.733)
+		),
+		url(../../img/nat-4.jpg);
+	background-size: cover;
+	transform: skewY(-7deg);
+
+	& > * {
+		transform: skewY(7deg);
+	}
+	&__box {
+		padding: 3rem 2rem;
+		background-color: rgba($color-white, 0.8);
+		box-shadow: 0 4rem 4rem rgba($color-black, 0.2);
+		font-size: 1.5rem;
+		transition: all 0.2s;
+		border-radius: 0.5rem;
+
+		&:hover {
+			transform: translateY(-1.5rem) scale(1.05);
+		}
+	}
+}
+
+.section-tours {
+	background-color: $color-grey-ligth;
+	padding: 25rem 0 15rem 0;
+	margin-top: -10rem;
+	text-align: center;
+}
+
+.section-reviews {
+	padding: 25rem 0 15rem 0;
+	position: relative;
+	text-align: center;
+}
+
+.section-booking {
+	background-image: linear-gradient(
+		to right bottom,
+		rgba($color-primary-ligth, 0.733),
+		rgba($color-primary-dark, 0.733)
+	);
+	height: 110vh;
+	position: relative;
+}

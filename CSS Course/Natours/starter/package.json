@@ -1,0 +1,18 @@
+{
+	"name": "nators",
+	"version": "1.0.0",
+	"description": "landing page for natours",
+	"main": "index.js",
+	"scripts": {
+		"compile:sass": "node-sass sass/main.scss css/style.css -w"
+	},
+	"repository": {
+		"type": "git",
+		"url": "myproyects"
+	},
+	"author": "Fausto Pereyra",
+	"license": "ISC",
+	"devDependencies": {
+		"node-sass": "^4.13.1"
+	}
+}

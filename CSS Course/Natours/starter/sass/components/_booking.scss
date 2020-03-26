@@ -1,0 +1,15 @@
+.booking-box {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 75%;
+	height: 60%;
+	transform: translate(-50%, -50%);
+	background-image: url(../../img/nat-10.jpg);
+	background-size: cover;
+
+	&__form {
+		clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+		background-color: white;
+	}
+}

@@ -1,0 +1,16 @@
+@keyframes moveLeft {
+	0% {
+		opacity: 0;
+		transform: translatex(-10rem);
+	}
+
+	80% {
+		opacity: 0, 8;
+		transform: translatex(0.5rem);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translatex(0);
+	}
+}
