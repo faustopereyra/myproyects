@@ -1,0 +1,28 @@
+{
+	"name": "forkify",
+	"version": "1.0.0",
+	"description": "web serch",
+	"main": "index.js",
+	"scripts": {
+		"dev": "webpack --mode develompent",
+		"build": "webpack --mode production"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/faustopereyra/myproyects"
+	},
+	"author": "Fausto Pereyra",
+	"license": "ISC",
+	"devDependencies": {
+		"@babel/core": "^7.9.0",
+		"@babel/preset-env": "^7.9.0",
+		"babel-loader": "^8.1.0",
+		"webpack": "^4.42.1",
+		"webpack-cli": "^3.3.11"
+	},
+	"dependencies": {
+		"core-js": "^3.6.4",
+		"jquery": "^3.4.1",
+		"regenerator-runtime": "^0.13.5"
+	}
+}

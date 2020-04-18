@@ -11,8 +11,5 @@
 		"url": "myproyects"
 	},
 	"author": "Fausto Pereyra",
-	"license": "ISC",
-	"devDependencies": {
-		"node-sass": "^4.13.1"
-	}
+	"license": "ISC"
 }
